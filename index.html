@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        h1,h2{
+    text-align: center;
+    
+}
+body{
+    text-align: center;
+     height: 750px;
+    width:700px;
+    border: 9px solid black;
+    position: fixed;
+    left: 400px;
+    border-radius: 15px;
+    box-shadow: 2px 3px 9px;
+}
+.orange{
+    height: 180px;
+    width: 180px;
+    background-color: orange;
+    border-radius: 30px;
+    border: 10px solid black;
+    margin: 15px;
+    
+    position: relative;
+    
+}
+.pink{
+    height: 180px;
+    width: 180px;
+    background-color: pink;
+    border-radius: 30px;
+    border: 10px solid black;
+    margin: 5px;
+    
+    position: relative;
+    top: -215px;
+    left: 245px;
+    
+}
+.blue{
+    height: 180px;
+    width: 180px;
+    background-color: skyblue;
+    border-radius: 30px;
+    border: 10px solid black;
+    margin: 15px;
+   
+}
+.voilet{
+    height: 180px;
+    width: 180px;
+    background-color: violet;
+    border-radius: 30px;
+    border: 10px solid black;
+    margin: 5px;
+    
+    position: relative;
+    top: -215px;
+    left: 245px;
+}
+.lower{
+    position: relative;
+    top: -220px;
+}
+.upper,.lower{
+ 
+  position: relative;
+   left: 500px;
+ 
+ 
+}
+.gameflash{
+    background-color: white;
+}
+
+.userflash{
+    background-color: green;
+}
+
+.Gameflash{
+    background-color: red;
+}
+
+button{
+    height: 35px;
+    width: 75px;
+   background-color: rgb(247, 100, 59);
+   position: relative;
+   top: -400px;
+   left: 380px;
+   border: 4px solid black;
+   border-radius: 8px;
+   
+}
+
+.game{
+    position: relative;
+    left: -375px;
+   
+}
+
+.lower{
+    margin-top: 25px;
+}
+
+.rules{
+    display: flex;
+    height: 700px;
+    width: 350px;
+    flex-wrap: wrap;
+    position: fixed;
+    left: 1140px;
+    top: 25px;
+    border: 4px solid black;
+    font-size: 20px;
+     padding: 15px;
+    text-align: left;
+   
+    
+}
+ul{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+
+    </style>
+</head>
+
+<body class="body">
+
+
+    
+    <h1>
+        Simon Game
+    </h1>
+
+    <h2>
+        Press any key to Start the Game
+    </h2>
+    <br>
+    <br>
+
+      <div class="rules">
+        <p>
+         <b>How to Play Simon Says (Online Button Version)</b>
+            <ul>
+                    
+<li>Start the Game. (By clicking any keyboard key)<br></li>
+
+<li>A button palette appears on your screen.<br></li>
+<li>Watch/Listen for Commands (button blinks).<br></li>
+<li>Remember the colour.<br></li>
+<li>Press the Correct Button.<br></li>
+<li>Example: “if green button blinks” → Click the green button.<br></li>
+<li>Level ups and next button Blinks , Follow the pattern from Starting.<br></li>
+<li>Avoid clicking wrong buttons/wrong order. </li>
+<li>Pressing a wrong button or acting without pattern  eliminates you.<br>
+</li>
+<li>Win the Game.!!<br></li>
+<li>Continue following commands correctly until you can ! and complete all rounds.<br></li>
+
+ </ul>
+ </p>
+                
+        
+    </div>
+
+  
+
+<div class="game"><div class="upper">
+        <div class=" btn orange"type="button" id="orange">
+
+    </div>
+    <div class=" btn pink" type="button" id="pink">
+
+    </div>
+    </div>
+    <div class="lower">
+
+        <div class="btn blue" type="button" id="blue">
+
+    </div>
+    <div class=" btn voilet" type="button" id="voilet">
+    
+    </div>
+
+    </div>
+    <Button>Quit</Button>
+</div>
+
+
+    
+
+    
+    
+    <script>
+    
+    let GameSeq=[];
+let UserSeq=[];
+
+let Started=false;
+let level=0;
+
+let btns=["orange","pink","blue","voilet"];
+
+let body=document.querySelector("body");
+let button=document.querySelector("Button");
+
+document.addEventListener("keypress",function(){
+
+    if(Started==false){
+
+console.log("Game started");
+
+Started=true;
+levels();
+    }
+
+ 
+});
+
+let h2=document.querySelector("h2");
+
+function levels()
+{
+     UserSeq=[];
+    level++;
+    h2.innerText=`Level ${level}`;
+    let randomno=Math.floor(Math.random()*3);
+    let randomcolor=btns[randomno];
+    let randombtn=document.querySelector(`.${randomcolor}`);
+   
+    gameflash(randombtn);
+ GameSeq.push(randomcolor);
+ 
+
+}
+
+function gameflash(btn){
+   
+    btn.classList.add("gameflash");
+    setTimeout(function(){
+        btn.classList.remove("gameflash")},250
+    );
+}
+function userflash(btn){
+   
+    btn.classList.add("userflash");
+    setTimeout(function(){
+        btn.classList.remove("userflash")},250
+    );
+}
+
+function Anscheck(currlvl){
+
+    console.log(GameSeq);
+     console.log(UserSeq);
+   
+    if(GameSeq[currlvl]==UserSeq[currlvl]){
+        if(UserSeq.length==GameSeq.length){
+           setTimeout(
+            levels,1000
+           );
+          
+        }
+        
+    }
+    else{
+       
+       score();
+        reset();
+        
+        
+    }
+}
+
+function buttonpressed(){
+    let btn=this;
+    userflash(btn);
+
+    let usercolor=btn.getAttribute("id");
+    UserSeq.push(usercolor);
+     
+     Anscheck(UserSeq.length-1);
+}
+
+let btn=document.querySelectorAll(".btn");
+for(butns of btn){
+    butns.addEventListener("click",buttonpressed);
+}
+
+function reset(){
+    GameSeq=[];
+    level=0;
+    UserSeq=[];
+    Started=false;
+}
+
+function score(){
+    h2.innerHTML=`<p>Game over ! press any key to start <br> Your Score was ${GameSeq.length}<p>`;
+    backflash(body);
+}
+
+function backflash(body){
+   
+    body.classList.add("Gameflash");
+    setTimeout(function(){
+        body.classList.remove("Gameflash")},250
+    );
+}
+
+button.addEventListener("click", function Quit(){
+ score();
+        reset();
+
+
+});</script>
+</body>
+</html>
