@@ -177,10 +177,10 @@
     });
 
      btnis.addEventListener("click", function () {
-      if (!Started) {
+    setTimeout(function button(){if (!Started) {
         Started = true;
-        levels();
-      }
+        levels();}
+      },500);
     });
 
     function levels() {
@@ -255,4 +255,5 @@
   </script>
 </body>
 </html>
+
 
